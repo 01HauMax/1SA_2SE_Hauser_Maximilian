@@ -25,16 +25,26 @@ namespace _1SA_2SE_Hauser_Maxilmilian
         private void button1_Click(object sender, EventArgs e)
         {
             Auto1.Erstellen(textBox1.Text,comboBox1.Text,textBox2.Text,textBox3.Text,textBox4.Text);
+            textBox7.Text = "Marke: " + textBox1.Text + Environment.NewLine + "Farbe: " + comboBox1.Text + Environment.NewLine + "PS: " + textBox2.Text + Environment.NewLine + "Tankgröße: " + textBox3.Text + Environment.NewLine + "Verbrauch: " + textBox4.Text;
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
             progressBar1.Value = Auto1.Tanken(textBox5.Text);
+            if (Auto1.th > Convert.ToInt32(textBox3.Text))
+                Auto1.th = Convert.ToInt32(textBox3.Text);
+            label8.Text = Convert.ToString(Auto1.th);
         }
 
         private void button3_Click(object sender, EventArgs e)
         {
+            if (Auto1.Fahren(textBox6.Text) < 0)
+                progressBar1.Value = 0;
+            else
             progressBar1.Value = Auto1.Fahren(textBox6.Text);
+            if (Auto1.th < 0)
+                Auto1.th = 0;
+            label8.Text = Convert.ToString(Auto1.th);
         }
 
     }
@@ -42,7 +52,8 @@ namespace _1SA_2SE_Hauser_Maxilmilian
     public class Auto
     {
         private string Marke, Farbe;
-        private int PS, TG, V, th;
+        private int PS, TG, V;
+        public int th;
 
         public void Erstellen(string M,string F,string P,string T, string Ver)
         {
@@ -65,6 +76,7 @@ namespace _1SA_2SE_Hauser_Maxilmilian
             {
                 r = 100;
             }
+
             return r;
         }
 
